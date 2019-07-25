@@ -35,11 +35,14 @@ UpdateMacAddress (
   UINT8         MacAddress[6];
 
   //
-  // Locate the node that the 'ethernet' alias refers to
+  // Locate the node that the 'ethernet[0]' alias refers to
   //
   Node = fdt_path_offset (mFdtImage, "ethernet");
   if (Node < 0) {
-    DEBUG ((DEBUG_ERROR, "%a: failed to locate 'ethernet' alias\n", __FUNCTION__));
+    Node = fdt_path_offset (mFdtImage, "ethernet0");
+  }
+  if (Node < 0) {
+    DEBUG ((DEBUG_ERROR, "%a: failed to locate 'ethernet[0]' alias\n", __FUNCTION__));
     return;
   }
 
